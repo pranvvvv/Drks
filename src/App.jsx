@@ -37,6 +37,31 @@ function App() {
     }, 1800);
   };
 
+  const russiaUniversities = [
+    "Novosibirsk",
+    "Bashkir",
+    "Tyumen",
+    "Ingush",
+    "Crimea",
+    "Savostopol",
+    "Northwestern",
+    "Ashtrakan",
+    "Saratov",
+    "Kursk",
+    "Orel",
+    "Kuban",
+    "Kabardino",
+    "North Caucasian",
+    "Voronezh",
+    "Lobachevasky",
+    "Tambov",
+    "Nosma",
+    "Yaroslav Wise",
+    "Ural State",
+    "Volgograd",
+    "Siberian",
+  ];
+
   return (
     <>
       <div className="bg-orb bg-orb-a" aria-hidden="true"></div>
@@ -51,6 +76,7 @@ function App() {
           <nav className="nav-links" aria-label="Primary Navigation">
             <a href="#why-drks">Why DRKS</a>
             <a href="#process">Process</a>
+            <a href="#russia-fees">Russia Fees</a>
             <a href="#destinations">Destinations</a>
             <a href="#faq">FAQs</a>
           </nav>
@@ -194,6 +220,102 @@ function App() {
                   </p>
                 </div>
               </article>
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="russia-fees">
+          <div className="container">
+            <div className="section-head reveal">
+              <p className="eyebrow">MBBS in Russia 2026</p>
+              <h2>Detailed Guidance, University Coverage, and Fee Structure</h2>
+              <p className="hero-subtext">
+                This page is built as an original DRKS reference covering eligibility,
+                admissions, documentation, country planning, and a university-wise
+                structure for your Russia counseling cycle.
+              </p>
+            </div>
+
+            <div className="russia-info-grid">
+              <article className="feature-card reveal">
+                <h3>Eligibility Snapshot</h3>
+                <ul className="content-list">
+                  <li>Minimum age 17 years by 31 December of admission year.</li>
+                  <li>10+2 with Physics, Chemistry, Biology from recognized board.</li>
+                  <li>NEET qualification required for India licensing pathway.</li>
+                  <li>Medium options vary by university: English, bilingual, or Russian.</li>
+                </ul>
+              </article>
+              <article className="feature-card reveal delay-1">
+                <h3>Admission Workflow</h3>
+                <ul className="content-list">
+                  <li>Profile evaluation and university matching.</li>
+                  <li>Application filing with scanned academic documents.</li>
+                  <li>Offer or invitation letter issuance.</li>
+                  <li>Fee transfer, visa, travel, and hostel onboarding.</li>
+                </ul>
+              </article>
+              <article className="feature-card reveal delay-2">
+                <h3>Documents Required</h3>
+                <ul className="content-list">
+                  <li>Passport, 10th and 12th marksheets, NEET scorecard.</li>
+                  <li>Passport-size photos, birth certificate, medical fitness records.</li>
+                  <li>Invitation documents and visa processing paperwork.</li>
+                  <li>Additional embassy or university-specific compliance files.</li>
+                </ul>
+              </article>
+            </div>
+
+            <div className="section-head reveal">
+              <p className="eyebrow">University-Wise Fee Matrix</p>
+              <h2>22 Universities with Fixed OTC</h2>
+              <p className="small-note">
+                OTC is fixed at <strong>$500</strong> for all 22 universities listed below.
+                Tuition and hostel values are finalized during counseling based on the
+                latest intake circular and university invoice cycle.
+              </p>
+            </div>
+
+            <div className="table-wrap reveal">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>University</th>
+                    <th>OTC (USD)</th>
+                    <th>Tuition and Living</th>
+                    <th>Intake</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {russiaUniversities.map((name, index) => (
+                    <tr key={name}>
+                      <td>{index + 1}</td>
+                      <td>{name}</td>
+                      <td>$500 (Fixed)</td>
+                      <td>As per latest university fee sheet</td>
+                      <td>Mostly Sep to Oct</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="russia-long-content reveal">
+              <h3>Why Students Prefer Russia for MBBS</h3>
+              <p>
+                Many families choose Russia for practical medical training, relatively
+                accessible fee pathways, and globally recognized university options.
+                The decision should always be based on recognition status, language
+                comfort, city living costs, and long-term licensing plans.
+              </p>
+              <h3>Important Planning Notes</h3>
+              <ul className="content-list">
+                <li>Course duration is generally 6 years for many English-track programs.</li>
+                <li>Some universities may include bilingual segments and local language modules.</li>
+                <li>Climate adaptation, food planning, and hostel quality must be evaluated early.</li>
+                <li>Students targeting India practice should align preparation with current exam rules.</li>
+              </ul>
             </div>
           </div>
         </section>

@@ -290,6 +290,35 @@ a {
   margin-bottom: 0;
 }
 
+.content-list {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.content-list li {
+  margin-bottom: 0.5rem;
+  color: #34535a;
+}
+
+.russia-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.4rem;
+}
+
+.russia-long-content {
+  margin-top: 1.2rem;
+  background: #ffffff;
+  border: 1px solid var(--stroke);
+  border-radius: 16px;
+  padding: 1rem;
+}
+
+.russia-long-content h3 {
+  margin-top: 0.3rem;
+}
+
 .timeline {
   display: grid;
   gap: 0.9rem;
@@ -518,6 +547,7 @@ th {
 
   .hero-grid,
   .feature-grid,
+  .russia-info-grid,
   .country-grid,
   .cta-grid {
     grid-template-columns: 1fr;
