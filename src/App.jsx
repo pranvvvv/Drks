@@ -216,14 +216,6 @@ function App() {
     },
   ];
 
-  const galleryImages = [
-    "/assets/images/IMG_8910.jpg",
-    "/assets/images/IMG_8919.jpg",
-    "/assets/images/IMG_8946.jpg",
-    "/assets/images/IMG_8950.jpg",
-    "/assets/images/IMG_9042.jpg",
-  ];
-
   return (
     <>
       <div className="bg-orb bg-orb-a" aria-hidden="true"></div>
@@ -299,22 +291,6 @@ function App() {
                 Details can vary by country and university. DRKS helps verify
                 current rules before you apply.
               </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="section soft-bg" id="gallery">
-          <div className="container">
-            <div className="section-head reveal">
-              <p className="eyebrow">Campus Glimpses</p>
-              <h2>Student Lifestyle and University Environments</h2>
-            </div>
-            <div className="image-grid reveal">
-              {galleryImages.map((src, idx) => (
-                <figure className="image-card" key={src}>
-                  <img src={src} alt={`DRKS Russia MBBS campus visual ${idx + 1}`} loading="lazy" />
-                </figure>
-              ))}
             </div>
           </div>
         </section>
