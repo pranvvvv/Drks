@@ -378,12 +378,17 @@ a {
   border: 1px solid var(--stroke);
   border-radius: 14px;
   background: var(--surface);
+  -webkit-overflow-scrolling: touch;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
   min-width: 640px;
+}
+
+td {
+  vertical-align: top;
 }
 
 th,
@@ -545,6 +550,10 @@ th {
     display: none;
   }
 
+  .nav-wrap {
+    min-height: 68px;
+  }
+
   .hero-grid,
   .feature-grid,
   .russia-info-grid,
@@ -567,8 +576,42 @@ th {
     padding-top: 4.8rem;
   }
 
+  .section {
+    padding: 3.2rem 0;
+  }
+
   .hero h1 {
     font-size: clamp(1.8rem, 10vw, 2.5rem);
+  }
+
+  .hero-subtext {
+    font-size: 0.96rem;
+  }
+
+  .hero-card {
+    padding: 1rem;
+  }
+
+  .feature-card,
+  .country-card,
+  .timeline-item,
+  .lead-form,
+  .russia-long-content {
+    padding: 0.9rem;
+  }
+
+  .table-wrap table {
+    min-width: 560px;
+  }
+
+  th,
+  td {
+    padding: 0.72rem;
+    font-size: 0.88rem;
+  }
+
+  .section-head h2 {
+    font-size: clamp(1.4rem, 6.5vw, 2rem);
   }
 
   .timeline-item {
