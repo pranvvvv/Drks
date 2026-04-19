@@ -38,28 +38,190 @@ function App() {
   };
 
   const russiaUniversities = [
-    "Novosibirsk",
-    "Bashkir",
-    "Tyumen",
-    "Ingush",
-    "Crimea",
-    "Savostopol",
-    "Northwestern",
-    "Ashtrakan",
-    "Saratov",
-    "Kursk",
-    "Orel",
-    "Kuban",
-    "Kabardino",
-    "North Caucasian",
-    "Voronezh",
-    "Lobachevasky",
-    "Tambov",
-    "Nosma",
-    "Yaroslav Wise",
-    "Ural State",
-    "Volgograd",
-    "Siberian",
+    {
+      name: "Novosibirsk",
+      mappedTo: "Novosibirsk National Research State University",
+      tuition: "6500",
+      hostel: "500",
+      yearly: "304100",
+      total: "As per latest sheet",
+    },
+    {
+      name: "Bashkir",
+      mappedTo: "Bashkir State Medical University",
+      tuition: "360000",
+      hostel: "40000",
+      yearly: "745600",
+      total: "2685600",
+    },
+    {
+      name: "Tyumen",
+      mappedTo: "Not available in uploaded sheet",
+      tuition: "TBD",
+      hostel: "TBD",
+      yearly: "TBD",
+      total: "TBD",
+    },
+    {
+      name: "Ingush",
+      mappedTo: "Ingush State University",
+      tuition: "198000",
+      hostel: "28000",
+      yearly: "604800",
+      total: "1734800",
+    },
+    {
+      name: "Crimea",
+      mappedTo: "Crimea Federal University",
+      tuition: "330000",
+      hostel: "38000",
+      yearly: "709000",
+      total: "2529600",
+    },
+    {
+      name: "Savostopol",
+      mappedTo: "Not available in uploaded sheet",
+      tuition: "TBD",
+      hostel: "TBD",
+      yearly: "TBD",
+      total: "TBD",
+    },
+    {
+      name: "Northwestern",
+      mappedTo: "North-Western State Medical University",
+      tuition: "490000",
+      hostel: "36000",
+      yearly: "871600",
+      total: "3501600",
+    },
+    {
+      name: "Ashtrakan",
+      mappedTo: "Astrakhan State Medical University",
+      tuition: "300000",
+      hostel: "70000",
+      yearly: "723900",
+      total: "2573900",
+    },
+    {
+      name: "Saratov",
+      mappedTo: "Saratov State Medical University",
+      tuition: "540000",
+      hostel: "15000",
+      yearly: "917200",
+      total: "3692200",
+    },
+    {
+      name: "Kursk",
+      mappedTo: "Kursk State Medical University",
+      tuition: "5580",
+      hostel: "700",
+      yearly: "310380",
+      total: "As per latest sheet",
+    },
+    {
+      name: "Orel",
+      mappedTo: "Orel State Medical University",
+      tuition: "315850",
+      hostel: "60000",
+      yearly: "721450",
+      total: "2375700",
+    },
+    {
+      name: "Kuban",
+      mappedTo: "Kuban State Medical University",
+      tuition: "275000",
+      hostel: "10000",
+      yearly: "622300",
+      total: "2047300",
+    },
+    {
+      name: "Kabardino",
+      mappedTo: "Kabardino-Balkarian State University",
+      tuition: "324000",
+      hostel: "18000",
+      yearly: "687600",
+      total: "2382600",
+    },
+    {
+      name: "North Caucasian",
+      mappedTo: "North Caucasian State Medical Academy",
+      tuition: "300000",
+      hostel: "20000",
+      yearly: "657300",
+      total: "2207300",
+    },
+    {
+      name: "Voronezh",
+      mappedTo: "Voronezh State Medical University",
+      tuition: "427100",
+      hostel: "65000",
+      yearly: "829400",
+      total: "3284900",
+    },
+    {
+      name: "Lobachevasky",
+      mappedTo: "Privolzhsky Research Medical University",
+      tuition: "460000",
+      hostel: "80000",
+      yearly: "877300",
+      total: "3527300",
+    },
+    {
+      name: "Tambov",
+      mappedTo: "Tambov State University",
+      tuition: "385000",
+      hostel: "As per sheet",
+      yearly: "730600",
+      total: "2655600",
+    },
+    {
+      name: "Nosma",
+      mappedTo: "North Ossetian State Medical Academy",
+      tuition: "310000",
+      hostel: "40000",
+      yearly: "695600",
+      total: "2445600",
+    },
+    {
+      name: "Yaroslav wise",
+      mappedTo: "Yaroslav-the-Wise Novgorod State University",
+      tuition: "375000",
+      hostel: "As per sheet",
+      yearly: "720600",
+      total: "2595600",
+    },
+    {
+      name: "Ural state",
+      mappedTo: "Ural State Medical University",
+      tuition: "300000",
+      hostel: "12000",
+      yearly: "649300",
+      total: "2209300",
+    },
+    {
+      name: "Volgograd",
+      mappedTo: "Volgograd State Mediacal University",
+      tuition: "465000",
+      hostel: "40000",
+      yearly: "894200",
+      total: "As per latest sheet",
+    },
+    {
+      name: "Siberian",
+      mappedTo: "Siberian State Medical University",
+      tuition: "385600",
+      hostel: "70000",
+      yearly: "817800",
+      total: "3095800",
+    },
+  ];
+
+  const galleryImages = [
+    "/assets/images/IMG_8910.jpg",
+    "/assets/images/IMG_8919.jpg",
+    "/assets/images/IMG_8946.jpg",
+    "/assets/images/IMG_8950.jpg",
+    "/assets/images/IMG_9042.jpg",
   ];
 
   return (
@@ -137,6 +299,22 @@ function App() {
                 Details can vary by country and university. DRKS helps verify
                 current rules before you apply.
               </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="section soft-bg" id="gallery">
+          <div className="container">
+            <div className="section-head reveal">
+              <p className="eyebrow">Campus Glimpses</p>
+              <h2>Student Lifestyle and University Environments</h2>
+            </div>
+            <div className="image-grid reveal">
+              {galleryImages.map((src, idx) => (
+                <figure className="image-card" key={src}>
+                  <img src={src} alt={`DRKS Russia MBBS campus visual ${idx + 1}`} loading="lazy" />
+                </figure>
+              ))}
             </div>
           </div>
         </section>
@@ -282,19 +460,25 @@ function App() {
                   <tr>
                     <th>#</th>
                     <th>University</th>
+                    <th>Sheet Match</th>
                     <th>OTC (USD)</th>
-                    <th>Tuition and Living</th>
-                    <th>Intake</th>
+                    <th>Tuition</th>
+                    <th>Hostel</th>
+                    <th>1st Year Package</th>
+                    <th>Total Package</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {russiaUniversities.map((name, index) => (
-                    <tr key={name}>
+                  {russiaUniversities.map((item, index) => (
+                    <tr key={item.name}>
                       <td>{index + 1}</td>
-                      <td>{name}</td>
+                      <td>{item.name}</td>
+                      <td>{item.mappedTo}</td>
                       <td>$500 (Fixed)</td>
-                      <td>As per latest university fee sheet</td>
-                      <td>Mostly Sep to Oct</td>
+                      <td>{item.tuition}</td>
+                      <td>{item.hostel}</td>
+                      <td>{item.yearly}</td>
+                      <td>{item.total}</td>
                     </tr>
                   ))}
                 </tbody>
