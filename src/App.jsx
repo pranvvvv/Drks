@@ -1,710 +1,558 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+
+const toAsset = (fileName) => `/assets/images/${encodeURIComponent(fileName)}`;
+
+const logoImage = toAsset("WhatsApp Image 2026-04-20 at 5.34.13 PM.jpeg");
+
+const galleryFiles = [
+  "WhatsApp Image 2026-04-21 at 1.jpeg",
+  "WhatsApp Image 2026-04-21 at 12.02.23 AM.jpeg",
+  "WhatsApp Image 2026-04-21 at 12.05.01 AM.jpeg",
+  "WhatsApp Image 2026-04-21 at 12.07.24 AM.jpeg",
+  "dj.jpeg",
+  "hhh.jpeg",
+  "jdj.jpeg",
+  "jjs.jpeg",
+];
+
+const tickerItems = [
+  "MBBS Russia 2026 Admissions Open",
+  "Indian Food and Hostel Assistance",
+  "NEET Guidance and Profile Verification",
+  "Detailed University Comparison Calls",
+  "Transparent Fee and Visa Support",
+  "Mobile-Friendly Counselling Journey",
+];
+
+const overviewStats = [
+  ["6 Years", "Program Duration"],
+  ["50% PCB", "Typical Eligibility"],
+  ["Sep - Oct", "Main Intake"],
+  ["1:1", "Parent Counselling"],
+];
+
+const whyRussia = [
+  "Globally recognized medical universities with strong clinical base.",
+  "Affordable tuition when compared with many private options.",
+  "Structured international student support and campus housing.",
+  "Practical pathway planning for FMGE/NExT-focused preparation.",
+];
+
+const benefits = [
+  {
+    title: "Fast Profile Fit",
+    text: "We map marks, NEET status, and budget to shortlist realistic universities in one consultation.",
+    icon: "i-profile",
+  },
+  {
+    title: "Complete Documentation",
+    text: "Application, invitation, apostille notes, visa file checks, and travel checklist are handled.",
+    icon: "i-file",
+  },
+  {
+    title: "Transparent Costs",
+    text: "You get clear split-up of tuition, hostel, insurance, forex, and yearly expected spend.",
+    icon: "i-calc",
+  },
+  {
+    title: "Post-Arrival Support",
+    text: "Airport transfer guidance, local onboarding, and first-semester follow-up for students and parents.",
+    icon: "i-rocket",
+  },
+];
+
+const eligibilityList = [
+  "Minimum age 17 years during admission year",
+  "10+2 with PCB background",
+  "Minimum 50% in PCB (as per current norms)",
+  "NEET qualification as per latest guideline",
+];
+
+const docsList = [
+  "Passport and clear photographs",
+  "10th and 12th marksheets + certificates",
+  "NEET scorecard and ID proofs",
+  "Medical fitness and supporting documents",
+  "University invitation and visa file set",
+];
+
+const timeline = [
+  ["Step 1", "Counselling and profile review"],
+  ["Step 2", "University shortlist + fee planning"],
+  ["Step 3", "Admission filing and invite letter"],
+  ["Step 4", "Visa process and travel prep"],
+  ["Step 5", "Arrival support and settlement"],
+];
+
+const feeRows = [
+  ["RMU (Russia Medical University Track)", "INR 4.2L", "INR 21L - 26L"],
+  ["Rostov State Medical", "INR 3.5L", "INR 16L - 20L"],
+  ["Kazan Medical", "INR 4.1L", "INR 19L - 24L"],
+  ["Bashkir State", "INR 4.3L", "INR 18L - 23L"],
+  ["Pirogov", "INR 5.6L", "INR 26L - 30L"],
+  ["Crimean Federal", "INR 3.75L", "INR 14.9L - 18.5L"],
+];
+
+const galleryLabels = [
+  "RMU main block",
+  "Academic block",
+  "Campus entrance",
+  "Student living zone",
+  "Classroom environment",
+  "Laboratory setup",
+  "University infrastructure",
+  "Hostel and support area",
+];
+
+const rmuFacts = [
+  ["University Focus", "RMU counselling-first intake support"],
+  ["Program Duration", "6 Years"],
+  ["Teaching Pattern", "English / Bilingual mix by phase"],
+  ["Intake Window", "September to October"],
+  ["Admission Path", "Profile fit -> invite -> visa -> travel"],
+  ["Student Support", "Hostel guidance + post-arrival follow-up"],
+];
+
+const rmuPoints = [
+  "RMU shortlist is prepared only after budget and NEET profile confirmation.",
+  "Every RMU estimate is shared in detailed split format for better clarity.",
+  "Parent updates are shared across admission, visa and travel milestones.",
+  "Academic and city fit are explained before final university confirmation.",
+];
+
+const costHeads = [
+  ["Tuition", "Year-wise fee planning with receipt-level clarity."],
+  ["Hostel", "Safe accommodation options near medical campus."],
+  ["Insurance", "Mandatory and optional health protection details."],
+  ["Visa + Travel", "End-to-end process checklists and timelines."],
+];
+
+const faqs = [
+  {
+    q: "Is MBBS in Russia good for Indian students?",
+    a: "Yes, with proper university selection and planning. We help choose programs aligned to your academic and budget profile.",
+  },
+  {
+    q: "Can parents track progress after admission?",
+    a: "Yes. We provide follow-up updates during admission, visa, and post-arrival stages.",
+  },
+  {
+    q: "Do you guide for documents and visa too?",
+    a: "Yes. Full support from application documentation to visa readiness and travel planning.",
+  },
+  {
+    q: "Is this website mobile focused?",
+    a: "Yes. It is built for quick readability, tap-first actions, and smooth mobile navigation.",
+  },
+];
 
 function App() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [submitted, setSubmitted] = useState(false);
+
+  const slides = useMemo(() => galleryFiles.map((fileName) => toAsset(fileName)), []);
 
   useEffect(() => {
     const revealNodes = document.querySelectorAll(".reveal");
-
-    const revealObserver = new IntersectionObserver(
+    const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("show");
-            revealObserver.unobserve(entry.target);
+            observer.unobserve(entry.target);
           }
         });
       },
-      {
-        threshold: 0.12,
-      }
+      { threshold: 0.16 }
     );
 
-    revealNodes.forEach((node) => revealObserver.observe(node));
+    revealNodes.forEach((node) => observer.observe(node));
 
-    return () => {
-      revealObserver.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
 
-  const handleSubmit = (event) => {
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % slides.length);
+    }, 3200);
+
+    return () => window.clearInterval(timer);
+  }, [slides.length]);
+
+  const submitForm = (event) => {
     event.preventDefault();
-    setIsSubmitting(true);
-
-    window.setTimeout(() => {
-      setIsSubmitting(false);
-      event.target.reset();
-    }, 1800);
+    setSubmitted(true);
+    event.currentTarget.reset();
+    window.setTimeout(() => setSubmitted(false), 1800);
   };
-
-  const russiaUniversities = [
-    {
-      name: "Novosibirsk",
-      mappedTo: "Novosibirsk National Research State University",
-      tuition: "6500",
-      hostel: "500",
-      yearly: "304100",
-      total: "As per latest sheet",
-    },
-    {
-      name: "Bashkir",
-      mappedTo: "Bashkir State Medical University",
-      tuition: "360000",
-      hostel: "40000",
-      yearly: "745600",
-      total: "2685600",
-    },
-    {
-      name: "Tyumen",
-      mappedTo: "Not available in uploaded sheet",
-      tuition: "TBD",
-      hostel: "TBD",
-      yearly: "TBD",
-      total: "TBD",
-    },
-    {
-      name: "Ingush",
-      mappedTo: "Ingush State University",
-      tuition: "198000",
-      hostel: "28000",
-      yearly: "604800",
-      total: "1734800",
-    },
-    {
-      name: "Crimea",
-      mappedTo: "Crimea Federal University",
-      tuition: "330000",
-      hostel: "38000",
-      yearly: "709000",
-      total: "2529600",
-    },
-    {
-      name: "Savostopol",
-      mappedTo: "Not available in uploaded sheet",
-      tuition: "TBD",
-      hostel: "TBD",
-      yearly: "TBD",
-      total: "TBD",
-    },
-    {
-      name: "Northwestern",
-      mappedTo: "North-Western State Medical University",
-      tuition: "490000",
-      hostel: "36000",
-      yearly: "871600",
-      total: "3501600",
-    },
-    {
-      name: "Ashtrakan",
-      mappedTo: "Astrakhan State Medical University",
-      tuition: "300000",
-      hostel: "70000",
-      yearly: "723900",
-      total: "2573900",
-    },
-    {
-      name: "Saratov",
-      mappedTo: "Saratov State Medical University",
-      tuition: "540000",
-      hostel: "15000",
-      yearly: "917200",
-      total: "3692200",
-    },
-    {
-      name: "Kursk",
-      mappedTo: "Kursk State Medical University",
-      tuition: "5580",
-      hostel: "700",
-      yearly: "310380",
-      total: "As per latest sheet",
-    },
-    {
-      name: "Orel",
-      mappedTo: "Orel State Medical University",
-      tuition: "315850",
-      hostel: "60000",
-      yearly: "721450",
-      total: "2375700",
-    },
-    {
-      name: "Kuban",
-      mappedTo: "Kuban State Medical University",
-      tuition: "275000",
-      hostel: "10000",
-      yearly: "622300",
-      total: "2047300",
-    },
-    {
-      name: "Kabardino",
-      mappedTo: "Kabardino-Balkarian State University",
-      tuition: "324000",
-      hostel: "18000",
-      yearly: "687600",
-      total: "2382600",
-    },
-    {
-      name: "North Caucasian",
-      mappedTo: "North Caucasian State Medical Academy",
-      tuition: "300000",
-      hostel: "20000",
-      yearly: "657300",
-      total: "2207300",
-    },
-    {
-      name: "Voronezh",
-      mappedTo: "Voronezh State Medical University",
-      tuition: "427100",
-      hostel: "65000",
-      yearly: "829400",
-      total: "3284900",
-    },
-    {
-      name: "Lobachevasky",
-      mappedTo: "Privolzhsky Research Medical University",
-      tuition: "460000",
-      hostel: "80000",
-      yearly: "877300",
-      total: "3527300",
-    },
-    {
-      name: "Tambov",
-      mappedTo: "Tambov State University",
-      tuition: "385000",
-      hostel: "As per sheet",
-      yearly: "730600",
-      total: "2655600",
-    },
-    {
-      name: "Nosma",
-      mappedTo: "North Ossetian State Medical Academy",
-      tuition: "310000",
-      hostel: "40000",
-      yearly: "695600",
-      total: "2445600",
-    },
-    {
-      name: "Yaroslav wise",
-      mappedTo: "Yaroslav-the-Wise Novgorod State University",
-      tuition: "375000",
-      hostel: "As per sheet",
-      yearly: "720600",
-      total: "2595600",
-    },
-    {
-      name: "Ural state",
-      mappedTo: "Ural State Medical University",
-      tuition: "300000",
-      hostel: "12000",
-      yearly: "649300",
-      total: "2209300",
-    },
-    {
-      name: "Volgograd",
-      mappedTo: "Volgograd State Mediacal University",
-      tuition: "465000",
-      hostel: "40000",
-      yearly: "894200",
-      total: "As per latest sheet",
-    },
-    {
-      name: "Siberian",
-      mappedTo: "Siberian State Medical University",
-      tuition: "385600",
-      hostel: "70000",
-      yearly: "817800",
-      total: "3095800",
-    },
-  ];
 
   return (
     <>
-      <div className="bg-orb bg-orb-a" aria-hidden="true"></div>
-      <div className="bg-orb bg-orb-b" aria-hidden="true"></div>
-
-      <header className="site-header" id="top">
-        <div className="container nav-wrap">
-          <a href="#top" className="brand" aria-label="DRKS Home">
-            <span className="brand-badge">DR</span>
-            <span className="brand-text">DRKS</span>
-          </a>
-          <nav className="nav-links" aria-label="Primary Navigation">
-            <a href="#why-drks">Why DRKS</a>
-            <a href="#process">Process</a>
-            <a href="#russia-fees">Russia Fees</a>
-            <a href="#destinations">Destinations</a>
-            <a href="#faq">FAQs</a>
-          </nav>
-          <a className="btn btn-sm" href="#enquire">
-            Book Counselling
-          </a>
+      <header className="topbar">
+        <div className="container topbar-inner">
+          <span>MBBS in Russia Admissions 2026 | Mobile Counselling Open</span>
+          <a href="#enquire">Get Free Counselling Slot</a>
         </div>
       </header>
 
+      <div className="ticker" aria-hidden="true">
+        <div className="ticker-track">
+          {[...tickerItems, ...tickerItems].map((item, index) => (
+            <span key={`${item}-${index}`}>{item}</span>
+          ))}
+        </div>
+      </div>
+
+      <nav className="nav">
+        <div className="container nav-inner">
+          <a className="brand" href="#top" id="top">
+            <img src={logoImage} alt="DrRks consultancy logo" />
+            <span>
+              DrRks Overseas
+              <small>MBBS in Russia</small>
+            </span>
+          </a>
+          <a className="btn btn-sm" href="#enquire">
+            Apply Now
+          </a>
+        </div>
+      </nav>
+
       <main>
-        <section className="hero section">
+        <section className="hero">
           <div className="container hero-grid">
-            <div className="hero-copy reveal">
-              <p className="eyebrow">MBBS Abroad Guidance for Indian Students</p>
+            <div className="hero-content reveal">
+              <p className="eyebrow">Reference-Style Detail Page</p>
               <h1>
-                Build Your Medical Career Globally with
-                <span> DRKS</span>
+                MBBS in Russia
+                <span>with Full Counselling, Action Flow and Detailings</span>
               </h1>
-              <p className="hero-subtext">
-                From country selection to campus arrival, DRKS delivers transparent,
-                data-backed counselling so you choose the right MBBS pathway with
-                confidence.
+              <p>
+                Explore eligibility, fee plans, process timeline, and university-focused
+                support in one mobile-first page built for fast decision-making.
               </p>
-              <div className="hero-cta">
-                <a className="btn" href="#enquire">
-                  Get Free Profile Review
+
+              <div className="hero-actions">
+                <a className="btn" href="tel:+916301547173">
+                  Call Counsellor
                 </a>
-                <a className="btn btn-ghost" href="#process">
-                  Explore Process
+                <a
+                  className="btn btn-ghost"
+                  href="https://wa.me/916301547173?text=Hi%20I%20need%20MBBS%20in%20Russia%20details"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  WhatsApp Now
                 </a>
               </div>
-              <div className="hero-points">
-                <span>NMC-aligned guidance</span>
-                <span>No donation pathways</span>
-                <span>End-to-end support</span>
+
+              <div className="stat-grid">
+                {overviewStats.map(([value, label]) => (
+                  <article key={label}>
+                    <h3>{value}</h3>
+                    <p>{label}</p>
+                  </article>
+                ))}
               </div>
             </div>
 
-            <div className="hero-card reveal delay-1">
-              <h2>Quick Facts for 2026 Intake</h2>
-              <ul>
-                <li>
-                  <strong>Typical Program Duration:</strong> 6 years (5+1 internship
-                  model)
-                </li>
-                <li>
-                  <strong>Core Eligibility:</strong> 10+2 with PCB and valid NEET
-                  score
-                </li>
-                <li>
-                  <strong>Most Popular Intakes:</strong> September to October
-                </li>
-                <li>
-                  <strong>Preferred Medium:</strong> English-taught programs
-                </li>
+            <div className="hero-visual reveal delay-1">
+              <img src={slides[activeSlide]} alt="MBBS campus visual" />
+              <div className="dots" role="tablist" aria-label="Slider indicators">
+                {slides.slice(0, 5).map((_, index) => (
+                  <button
+                    key={`dot-${index}`}
+                    className={index === activeSlide % 5 ? "dot active" : "dot"}
+                    onClick={() => setActiveSlide(index)}
+                    aria-label={`Show image ${index + 1}`}
+                  ></button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="container">
+            <div className="section-title reveal">
+              <p className="eyebrow">Why MBBS in Russia</p>
+              <h2>Key Reasons Students and Parents Consider This Route</h2>
+            </div>
+            <ul className="why-list reveal delay-1">
+              {whyRussia.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section className="section section-muted">
+          <div className="container">
+            <div className="section-title reveal">
+              <p className="eyebrow">Counselling Benefits</p>
+              <h2>Structured Actions from Profile to Campus</h2>
+            </div>
+
+            <div className="benefit-grid">
+              {benefits.map((item, index) => (
+                <article
+                  className={`benefit-card reveal ${index % 2 ? "delay-1" : ""}`}
+                  key={item.title}
+                >
+                  <span className={`mini-icon ${item.icon}`} aria-hidden="true"></span>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="container split-grid">
+            <article className="panel reveal">
+              <p className="eyebrow">Eligibility Criteria</p>
+              <h2>Who Can Apply</h2>
+              <ul className="list-clean">
+                {eligibilityList.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
               </ul>
-              <p className="small-note">
-                Details can vary by country and university. DRKS helps verify
-                current rules before you apply.
-              </p>
+            </article>
+            <article className="panel reveal delay-1">
+              <p className="eyebrow">Required Documents</p>
+              <h2>Checklist Before Admission</h2>
+              <ul className="list-clean">
+                {docsList.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section className="section section-muted">
+          <div className="container">
+            <div className="section-title reveal">
+              <p className="eyebrow">Campus and Student Gallery</p>
+              <h2>Upscaled Image Blocks for Better Visual Clarity</h2>
+            </div>
+
+            <div className="gallery-hero reveal delay-1">
+              <img src={slides[(activeSlide + 2) % slides.length]} alt="Feature campus visual" />
+            </div>
+
+            <div className="gallery-grid">
+              {slides.map((src, index) => (
+                <figure
+                  className={`gallery-card reveal ${index % 3 === 1 ? "delay-1" : ""} ${index % 3 === 2 ? "delay-2" : ""}`}
+                  key={src}
+                >
+                  <img src={src} alt={`Campus snapshot ${index + 1}`} loading="lazy" />
+                  <figcaption>{galleryLabels[index] || `Campus and student life visual ${index + 1}`}</figcaption>
+                </figure>
+              ))}
             </div>
           </div>
         </section>
 
-        <section className="section" id="why-drks">
-          <div className="container">
-            <div className="section-head reveal">
-              <p className="eyebrow">Why Students Choose Us</p>
-              <h2>Designed to Stand Out, Built on Real Support</h2>
-            </div>
-            <div className="feature-grid">
-              <article className="feature-card reveal delay-1">
-                <h3>Transparent University Matching</h3>
-                <p>
-                  We shortlist universities based on budget, recognition, campus
-                  ecosystem, and student-fit, not just marketing brochures.
-                </p>
-              </article>
-              <article className="feature-card reveal delay-2">
-                <h3>Compliance-First Approach</h3>
-                <p>
-                  Every recommendation is cross-checked with current eligibility and
-                  licensing pathways relevant for Indian students.
-                </p>
-              </article>
-              <article className="feature-card reveal delay-3">
-                <h3>Application to Arrival</h3>
-                <p>
-                  DRKS supports SOP guidance, document checks, offer handling, visa
-                  preparation, and practical pre-departure readiness.
-                </p>
-              </article>
-            </div>
+        <section className="section rmu-section">
+          <div className="container rmu-layout">
+            <article className="rmu-image-card reveal">
+              <img src={slides[2]} alt="RMU university image" />
+            </article>
+
+            <article className="panel reveal delay-1">
+              <p className="eyebrow">RMU University Details</p>
+              <h2>RMU-Focused Clarity Block</h2>
+              <p className="rmu-copy">
+                This section is dedicated to RMU so students and parents can clearly
+                understand admission direction, fee planning, timeline, and support level.
+              </p>
+
+              <div className="rmu-facts">
+                {rmuFacts.map(([key, value]) => (
+                  <div key={key}>
+                    <span>{key}</span>
+                    <p>{value}</p>
+                  </div>
+                ))}
+              </div>
+
+              <ul className="list-clean rmu-list">
+                {rmuPoints.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+
+              <div className="rmu-actions">
+                <a className="btn btn-sm" href="tel:+916301547173">
+                  Talk RMU Counsellor
+                </a>
+                <a
+                  className="btn btn-sm btn-ghost"
+                  href="https://wa.me/916301547173?text=Hi%20I%20need%20RMU%20MBBS%20details"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Get RMU Brochure
+                </a>
+              </div>
+            </article>
           </div>
         </section>
 
-        <section className="section soft-bg" id="process">
-          <div className="container">
-            <div className="section-head reveal">
-              <p className="eyebrow">Admission Journey</p>
-              <h2>Your DRKS Roadmap to MBBS Abroad</h2>
-            </div>
-            <div className="timeline">
-              <article className="timeline-item reveal">
-                <span>01</span>
-                <div>
-                  <h3>Profile Evaluation</h3>
-                  <p>
-                    Academic profile review, budget planning, and destination
-                    preference mapping.
-                  </p>
-                </div>
-              </article>
-              <article className="timeline-item reveal delay-1">
-                <span>02</span>
-                <div>
-                  <h3>Country and University Shortlisting</h3>
-                  <p>
-                    Recognition checks, curriculum comparison, fee estimates, and
-                    risk-aware selection.
-                  </p>
-                </div>
-              </article>
-              <article className="timeline-item reveal delay-2">
-                <span>03</span>
-                <div>
-                  <h3>Application and Offer Support</h3>
-                  <p>
-                    Form filing, document verification, and admission communication
-                    tracking.
-                  </p>
-                </div>
-              </article>
-              <article className="timeline-item reveal delay-3">
-                <span>04</span>
-                <div>
-                  <h3>Visa and Pre-Departure Preparation</h3>
-                  <p>
-                    Visa checklist support, travel briefing, accommodation planning,
-                    and onboarding guidance.
-                  </p>
-                </div>
-              </article>
-            </div>
+        <section className="section">
+          <div className="container split-grid">
+            <article className="panel reveal">
+              <p className="eyebrow">Admission Timeline</p>
+              <h2>Step-by-Step Process</h2>
+              <div className="timeline">
+                {timeline.map(([step, text]) => (
+                  <div className="timeline-item" key={step}>
+                    <span>{step}</span>
+                    <p>{text}</p>
+                  </div>
+                ))}
+              </div>
+            </article>
+            <article className="panel reveal delay-1">
+              <p className="eyebrow">Cost Heads</p>
+              <h2>Detailed Budget Buckets</h2>
+              <div className="cost-grid">
+                {costHeads.map(([title, text]) => (
+                  <div key={title}>
+                    <h3>{title}</h3>
+                    <p>{text}</p>
+                  </div>
+                ))}
+              </div>
+            </article>
           </div>
         </section>
 
-        <section className="section" id="russia-fees">
+        <section className="section">
           <div className="container">
-            <div className="section-head reveal">
-              <p className="eyebrow">MBBS in Russia 2026</p>
-              <h2>Detailed Guidance, University Coverage, and Fee Structure</h2>
-              <p className="hero-subtext">
-                This page is built as an original DRKS reference covering eligibility,
-                admissions, documentation, country planning, and a university-wise
-                structure for your Russia counseling cycle.
-              </p>
+            <div className="section-title reveal">
+              <p className="eyebrow">Fee Structure</p>
+              <h2>Quick Compare Table for Mobile and Desktop</h2>
             </div>
-
-            <div className="russia-info-grid">
-              <article className="feature-card reveal">
-                <h3>Eligibility Snapshot</h3>
-                <ul className="content-list">
-                  <li>Minimum age 17 years by 31 December of admission year.</li>
-                  <li>10+2 with Physics, Chemistry, Biology from recognized board.</li>
-                  <li>NEET qualification required for India licensing pathway.</li>
-                  <li>Medium options vary by university: English, bilingual, or Russian.</li>
-                </ul>
-              </article>
-              <article className="feature-card reveal delay-1">
-                <h3>Admission Workflow</h3>
-                <ul className="content-list">
-                  <li>Profile evaluation and university matching.</li>
-                  <li>Application filing with scanned academic documents.</li>
-                  <li>Offer or invitation letter issuance.</li>
-                  <li>Fee transfer, visa, travel, and hostel onboarding.</li>
-                </ul>
-              </article>
-              <article className="feature-card reveal delay-2">
-                <h3>Documents Required</h3>
-                <ul className="content-list">
-                  <li>Passport, 10th and 12th marksheets, NEET scorecard.</li>
-                  <li>Passport-size photos, birth certificate, medical fitness records.</li>
-                  <li>Invitation documents and visa processing paperwork.</li>
-                  <li>Additional embassy or university-specific compliance files.</li>
-                </ul>
-              </article>
-            </div>
-
-            <div className="section-head reveal">
-              <p className="eyebrow">University-Wise Fee Matrix</p>
-              <h2>22 Universities with Fixed OTC</h2>
-              <p className="small-note">
-                OTC is fixed at <strong>$500</strong> for all 22 universities listed below.
-                Tuition and hostel values are finalized during counseling based on the
-                latest intake circular and university invoice cycle.
-              </p>
-            </div>
-
-            <div className="table-wrap reveal">
+            <div className="table-wrap reveal delay-1">
               <table>
                 <thead>
                   <tr>
-                    <th>#</th>
                     <th>University</th>
-                    <th>Sheet Match</th>
-                    <th>OTC (USD)</th>
-                    <th>Tuition</th>
-                    <th>Hostel</th>
-                    <th>1st Year Package</th>
-                    <th>Total Package</th>
+                    <th>1st Year</th>
+                    <th>Total Estimate</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {russiaUniversities.map((item, index) => (
-                    <tr key={item.name}>
-                      <td>{index + 1}</td>
-                      <td>{item.name}</td>
-                      <td>{item.mappedTo}</td>
-                      <td>$500 (Fixed)</td>
-                      <td>{item.tuition}</td>
-                      <td>{item.hostel}</td>
-                      <td>{item.yearly}</td>
-                      <td>{item.total}</td>
+                  {feeRows.map(([name, firstYear, total]) => (
+                    <tr key={name}>
+                      <td>{name}</td>
+                      <td>{firstYear}</td>
+                      <td>{total}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
+          </div>
+        </section>
 
-            <div className="russia-long-content reveal">
-              <h3>Why Students Prefer Russia for MBBS</h3>
+        <section className="section section-muted" id="enquire">
+          <div className="container form-grid">
+            <div className="reveal">
+              <p className="eyebrow">Take Action</p>
+              <h2>Get Personal Counselling With University Shortlist</h2>
               <p>
-                Many families choose Russia for practical medical training, relatively
-                accessible fee pathways, and globally recognized university options.
-                The decision should always be based on recognition status, language
-                comfort, city living costs, and long-term licensing plans.
+                Fill details to receive a call back with university match, budget split,
+                eligibility status and next-step timeline.
               </p>
-              <h3>Important Planning Notes</h3>
-              <ul className="content-list">
-                <li>Course duration is generally 6 years for many English-track programs.</li>
-                <li>Some universities may include bilingual segments and local language modules.</li>
-                <li>Climate adaptation, food planning, and hostel quality must be evaluated early.</li>
-                <li>Students targeting India practice should align preparation with current exam rules.</li>
-              </ul>
-            </div>
-          </div>
-        </section>
 
-        <section className="section" id="destinations">
-          <div className="container">
-            <div className="section-head reveal">
-              <p className="eyebrow">Popular Destinations</p>
-              <h2>Country Options We Frequently Advise On</h2>
+              <div className="quick-actions">
+                <a href="tel:+916301547173">Direct Call</a>
+                <a
+                  href="https://wa.me/916301547173?text=Hi%20I%20want%20MBBS%20in%20Russia%20guidance"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  WhatsApp Chat
+                </a>
+                <a href="mailto:drksstudymbbsabroad9@gmail.com">Email Enquiry</a>
+              </div>
             </div>
-            <div className="country-grid">
-              <article className="country-card reveal">
-                <h3>Russia</h3>
-                <p>
-                  Affordable pathways, long-standing Indian student ecosystem, and
-                  strong medical infrastructure.
-                </p>
-              </article>
-              <article className="country-card reveal delay-1">
-                <h3>Georgia</h3>
-                <p>
-                  English-taught programs with student-friendly environment and
-                  growing global visibility.
-                </p>
-              </article>
-              <article className="country-card reveal delay-2">
-                <h3>Kazakhstan</h3>
-                <p>
-                  Value-driven tuition range with practical medical training exposure
-                  in selected universities.
-                </p>
-              </article>
-              <article className="country-card reveal delay-3">
-                <h3>Uzbekistan and Kyrgyzstan</h3>
-                <p>
-                  Budget-conscious options with increasing preference among
-                  first-generation medical aspirants.
-                </p>
-              </article>
-              <article className="country-card reveal">
-                <h3>Romania and Bulgaria</h3>
-                <p>
-                  European academic environment with institution-specific fee and
-                  clinical structure differences.
-                </p>
-              </article>
-              <article className="country-card reveal delay-1">
-                <h3>Bangladesh and Others</h3>
-                <p>
-                  Specific curriculum compatibility and admission policies depending
-                  on current intake cycles.
-                </p>
-              </article>
-            </div>
-          </div>
-        </section>
 
-        <section className="section comparison">
-          <div className="container reveal">
-            <div className="section-head">
-              <p className="eyebrow">Clarity for Families</p>
-              <h2>MBBS Abroad vs MBBS in India: Practical Lens</h2>
-            </div>
-            <div className="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Factor</th>
-                    <th>MBBS Abroad</th>
-                    <th>MBBS in India</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Seat Availability</td>
-                    <td>Wider options across countries</td>
-                    <td>Highly competitive seat pool</td>
-                  </tr>
-                  <tr>
-                    <td>Fee Range</td>
-                    <td>Can be cost-effective in many countries</td>
-                    <td>Govt lower, private often very high</td>
-                  </tr>
-                  <tr>
-                    <td>Exposure</td>
-                    <td>Multicultural and international environment</td>
-                    <td>Primarily domestic ecosystem</td>
-                  </tr>
-                  <tr>
-                    <td>Licensing Route</td>
-                    <td>Requires exam pathway for India practice</td>
-                    <td>Directly aligned with Indian system</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        <section className="section" id="faq">
-          <div className="container">
-            <div className="section-head reveal">
-              <p className="eyebrow">FAQs</p>
-              <h2>Questions We Hear Most</h2>
-            </div>
-            <div className="faq-grid">
-              <details className="faq-item reveal">
-                <summary>Is NEET required for MBBS abroad?</summary>
-                <p>
-                  For Indian students planning future licensing in India, a valid
-                  NEET qualification is generally required. Always confirm with the
-                  latest official guidelines.
-                </p>
-              </details>
-              <details className="faq-item reveal delay-1">
-                <summary>Do I need IELTS or TOEFL?</summary>
-                <p>
-                  Many universities do not ask for it, while some may. DRKS verifies
-                  this university by university.
-                </p>
-              </details>
-              <details className="faq-item reveal delay-2">
-                <summary>What documents are typically needed?</summary>
-                <p>
-                  Usually 10th and 12th marksheets, passport, NEET scorecard,
-                  medical fitness records, photographs, and country-specific
-                  paperwork.
-                </p>
-              </details>
-              <details className="faq-item reveal delay-3">
-                <summary>Can I practice in India after MBBS abroad?</summary>
-                <p>
-                  Yes, through the applicable licensing route and regulations in
-                  force at the time of graduation. We guide students on pathway
-                  planning from day one.
-                </p>
-              </details>
-            </div>
-          </div>
-        </section>
-
-        <section className="section cta-band" id="enquire">
-          <div className="container cta-grid">
-            <div className="cta-copy reveal">
-              <p className="eyebrow">Start with Confidence</p>
-              <h2>Book a One-to-One Strategy Call with DRKS</h2>
-              <p>
-                Receive a personalized shortlist, realistic fee estimate, and
-                timeline roadmap for your MBBS abroad journey.
-              </p>
-            </div>
-            <form className="lead-form reveal delay-1" onSubmit={handleSubmit}>
+            <form className="enquire-form reveal delay-1" onSubmit={submitForm}>
               <label>
                 Student Name
-                <input type="text" name="name" placeholder="Enter full name" required />
+                <input type="text" required placeholder="Enter full name" />
               </label>
               <label>
-                Mobile Number
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Enter phone number"
-                  required
-                />
+                Phone Number
+                <input type="tel" required placeholder="Enter mobile number" />
               </label>
               <label>
-                Target Intake
-                <select name="intake" required>
-                  <option value="">Select intake</option>
+                NEET Status
+                <select required>
+                  <option value="">Select</option>
+                  <option>Qualified</option>
+                  <option>Appearing</option>
+                </select>
+              </label>
+              <label>
+                Preferred Intake
+                <select>
                   <option>2026</option>
                   <option>2027</option>
                 </select>
               </label>
-              <label>
-                Preferred Destination
-                <input
-                  type="text"
-                  name="country"
-                  placeholder="Russia / Georgia / etc."
-                />
-              </label>
-              <button type="submit" className="btn" disabled={isSubmitting}>
-                {isSubmitting ? "Request Sent" : "Request Free Counselling"}
+              <button className="btn" type="submit">
+                {submitted ? "Submitted" : "Get Free Call Back"}
               </button>
-              <p className="small-note">
-                By submitting, you agree to be contacted by DRKS counsellors.
-              </p>
             </form>
+          </div>
+        </section>
+
+        <section className="section faq-section">
+          <div className="container">
+            <div className="section-title reveal">
+              <p className="eyebrow">FAQs</p>
+              <h2>Quick Answers for Students and Parents</h2>
+            </div>
+            <div className="faq-list">
+              {faqs.map((item, index) => (
+                <details
+                  className={`faq-item reveal ${index === 1 ? "delay-1" : ""} ${index > 1 ? "delay-2" : ""}`}
+                  key={item.q}
+                >
+                  <summary>{item.q}</summary>
+                  <p>{item.a}</p>
+                </details>
+              ))}
+            </div>
           </div>
         </section>
       </main>
 
-      <div className="floating-actions" aria-label="Quick contact actions">
-        <a
-          className="fab fab-whatsapp"
-          href="https://wa.me/916301547173?text=Hello%20DRKS"
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Chat on WhatsApp with DRKS"
-          title="WhatsApp"
-        >
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M19.1 4.9A9.9 9.9 0 0 0 12 2a10 10 0 0 0-8.7 15l-1.1 4 4.1-1.1A10 10 0 1 0 19.1 4.9zm-7.1 15.3a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-2.4.6.6-2.3-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.2c-.2-.1-1.3-.6-1.5-.7-.2-.1-.4-.1-.5.1-.2.2-.6.7-.8.9-.1.1-.3.1-.5 0a6.5 6.5 0 0 1-1.9-1.2 7.1 7.1 0 0 1-1.3-1.7c-.1-.2 0-.3.1-.4l.4-.5.2-.4v-.4c-.1-.1-.5-1.2-.7-1.7-.2-.4-.3-.4-.5-.4h-.4c-.1 0-.4.1-.6.3a2.5 2.5 0 0 0-.8 1.8c0 1 .8 2 1 2.2.1.2 1.8 2.9 4.5 3.9.6.3 1.1.4 1.5.5.6.2 1.2.2 1.7.1.5-.1 1.3-.6 1.5-1.1.2-.5.2-1 .1-1.1-.1-.1-.3-.2-.5-.3z" />
-          </svg>
-        </a>
-
-        <a
-          className="fab fab-call"
-          href="tel:+916301547173"
-          aria-label="Direct call to DRKS at +91 6301547173"
-          title="Call +91 6301547173"
-        >
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M6.6 10.8a15.6 15.6 0 0 0 6.6 6.6l2.2-2.2c.3-.3.8-.4 1.1-.2 1.2.5 2.5.8 3.8.8.5 0 .9.4.9.9V20c0 .5-.4.9-.9.9C11.9 20.9 3 12 3 1.9c0-.5.4-.9.9-.9h3.2c.5 0 .9.4.9.9 0 1.3.3 2.6.8 3.8.1.4.1.8-.2 1.1l-2 2z" />
-          </svg>
-        </a>
-      </div>
-
-      <footer className="site-footer">
-        <div className="container footer-wrap">
-          <p>
-            <strong>DRKS</strong> | MBBS Abroad Consultancy
-          </p>
-          <p className="small-note">
-            Original advisory content prepared for student guidance. Verify final
-            rules from official authorities.
-          </p>
+      <footer className="footer">
+        <div className="container footer-inner">
+          <p>DrRks Overseas Education | MBBS in Russia Student Guidance</p>
+          <p>Phone: +91 63015 47173 | Email: drksstudymbbsabroad9@gmail.com</p>
         </div>
       </footer>
+
+      <div className="mobile-action-bar" aria-label="Mobile sticky actions">
+        <a href="tel:+916301547173">Call</a>
+        <a
+          href="https://wa.me/916301547173?text=Hi%20I%20need%20MBBS%20guidance"
+          target="_blank"
+          rel="noreferrer"
+        >
+          WhatsApp
+        </a>
+        <a href="#enquire">Apply</a>
+      </div>
     </>
   );
 }
